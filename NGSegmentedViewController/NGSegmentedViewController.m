@@ -99,7 +99,7 @@ const CGFloat kNGSegmentedViewControllerExtraScrollViewTopInset = 2.0f;
 }
 
 - (id)init {
-    self = [self init];
+    self = [super init];
     if (self) {
         [self setupWithViewControllers:nil titles:nil];
     }
@@ -135,9 +135,12 @@ const CGFloat kNGSegmentedViewControllerExtraScrollViewTopInset = 2.0f;
         if ([obj isKindOfClass:[UIViewController class]] && idx < [titles count]) {
             UIViewController *viewController = obj;
             
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
             if ([viewController respondsToSelector:@selector(setSegmentedViewController:)]) {
                 [viewController performSelector:@selector(setSegmentedViewController:) withObject:self];
             }
+#pragma clang diagnostic pop
             
             [_mutableViewControllers addObject:viewController];
             [_mutableTitles addObject:titles[idx]];
@@ -153,9 +156,12 @@ const CGFloat kNGSegmentedViewControllerExtraScrollViewTopInset = 2.0f;
 }
 
 - (void)addViewController:(UIViewController *)viewController withTitle:(NSString *)title {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
     if ([viewController respondsToSelector:@selector(setSegmentedViewController:)]) {
         [viewController performSelector:@selector(setSegmentedViewController:) withObject:self];
     }
+#pragma clang diagnostic pop
     
     [_mutableViewControllers addObject:viewController];
     [_mutableTitles addObject:title];
@@ -168,9 +174,12 @@ const CGFloat kNGSegmentedViewControllerExtraScrollViewTopInset = 2.0f;
 }
 
 - (void)insertViewController:(UIViewController *)viewController atIndex:(NSUInteger)index withTitle:(NSString *)title {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
     if ([viewController respondsToSelector:@selector(setSegmentedViewController:)]) {
         [viewController performSelector:@selector(setSegmentedViewController:) withObject:self];
     }
+#pragma clang diagnostic pop
     
     [_mutableViewControllers insertObject:viewController atIndex:index];
     [_mutableTitles insertObject:title atIndex:index];
